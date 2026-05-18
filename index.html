@@ -228,7 +228,10 @@
  
   <div class="section" id="tab-history">
     <div class="card">
-      <div class="card-label">Workout log</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span class="card-label" style="margin:0">Workout log</span>
+        <button class="btn btn-primary" style="font-size:12px;padding:6px 14px" onclick="openManualInsert()">+ Add Past Workout</button>
+      </div>
       <div id="history-list"></div>
     </div>
   </div>
@@ -827,7 +830,144 @@ function histDeleteSet(dk,exIdx,setNum){
   if(container){container.querySelectorAll('.set-row').forEach((r,idx)=>{r.querySelector('.set-num-label').textContent=`Set ${idx+1}`;});}
 }
  
-// ── SCHEDULE ──────────────────────────────────────────────────────────────────
+ 
+// ── MANUAL INSERT ─────────────────────────────────────────────────────────────
+function openManualInsert(){
+  const modal=document.getElementById('manual-insert-modal');
+  // Default date to today
+  const td=dateKey(TODAY);
+  document.getElementById('mi-date').value=td;
+  // Default session to what that date should be
+  miUpdateSession();
+  modal.style.display='flex';
+}
+ 
+function miUpdateSession(){
+  const val=document.getElementById('mi-date').value;
+  if(!val)return;
+  const d=new Date(val+'T00:00:00');
+  const s=getEffectiveSession(d);
+  if(s!=='Rest'&&WORKOUTS[s]){
+    document.getElementById('mi-session').value=s;
+  }
+  miLoadExercises();
+}
+ 
+function miLoadExercises(){
+  const session=document.getElementById('mi-session').value;
+  const w=WORKOUTS[session];
+  if(!w)return;
+  let html='';
+  w.exercises.forEach((ex,i)=>{
+    html+=`<div class="exercise-item open" id="mi-ex-${i}">
+      <div class="exercise-header" onclick="document.getElementById('mi-ex-${i}').classList.toggle('open')">
+        <div class="exercise-left">
+          <span class="exercise-num">${i+1}</span>
+          <div><div class="exercise-name">${ex.name}</div><div class="exercise-meta">${ex.meta}</div></div>
+        </div>
+        <div class="exercise-right">
+          <button class="ex-check-btn" onclick="event.stopPropagation();miToggleDone(${i})" id="mi-check-${i}">⬜</button>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="log-panel">
+        <div class="sets-header"><span style="width:34px"></span><span style="flex:1">Weight (kg)</span><span style="flex:1">Reps</span><span style="width:30px"></span></div>
+        <div id="mi-sets-${i}">
+          <div class="set-row" id="mi-row-${i}-1">
+            <span class="set-num-label">Set 1</span>
+            <input class="set-input" type="number" inputmode="decimal" placeholder="kg" step="0.5" id="mi-kg-${i}-1">
+            <input class="set-input" type="number" inputmode="numeric" placeholder="reps" id="mi-reps-${i}-1">
+            <button class="set-delete-btn" onclick="miDeleteSet(${i},1)" title="Remove set">×</button>
+          </div>
+        </div>
+        <button class="add-set-btn" onclick="miAddSet(${i})">+ Add set</button>
+      </div>
+    </div>`;
+  });
+  // Cardio
+  html+=`<div class="cardio-card" id="mi-cardio" onclick="this.classList.toggle('done');document.getElementById('mi-cardio-check').textContent=this.classList.contains('done')?'✅':'⬜'">
+    <div class="exercise-left" style="gap:11px">
+      <span class="exercise-num" style="visibility:hidden">0</span>
+      <div><div class="cardio-label">Incline Treadmill Walk</div><div class="cardio-sub">Incline: 3 · Speed: 3–4 · 20–30 min</div></div>
+    </div>
+    <div class="exercise-right"><button class="ex-check-btn" id="mi-cardio-check" onclick="event.stopPropagation();document.getElementById('mi-cardio').classList.toggle('done');this.textContent=document.getElementById('mi-cardio').classList.contains('done')?'✅':'⬜'">⬜</button><span class="chevron" style="visibility:hidden">▼</span></div>
+  </div>`;
+  document.getElementById('mi-body').innerHTML=html;
+  // track set counts
+  window._miSetCounts={};
+  w.exercises.forEach((_,i)=>{ window._miSetCounts[i]=1; });
+}
+ 
+function miToggleDone(i){
+  const btn=document.getElementById(`mi-check-${i}`);
+  const item=document.getElementById(`mi-ex-${i}`);
+  const done=btn.textContent==='⬜';
+  btn.textContent=done?'✅':'⬜';
+  item.classList.toggle('done-ex',done);
+}
+ 
+function miAddSet(exIdx){
+  if(!window._miSetCounts)window._miSetCounts={};
+  window._miSetCounts[exIdx]=(window._miSetCounts[exIdx]||1)+1;
+  const s=window._miSetCounts[exIdx];
+  const container=document.getElementById(`mi-sets-${exIdx}`);
+  const row=document.createElement('div');
+  row.className='set-row';
+  row.id=`mi-row-${exIdx}-${s}`;
+  row.innerHTML=`<span class="set-num-label">Set ${s}</span>
+    <input class="set-input" type="number" inputmode="decimal" placeholder="kg" step="0.5" id="mi-kg-${exIdx}-${s}">
+    <input class="set-input" type="number" inputmode="numeric" placeholder="reps" id="mi-reps-${exIdx}-${s}">
+    <button class="set-delete-btn" onclick="miDeleteSet(${exIdx},${s})" title="Remove set">×</button>`;
+  container.appendChild(row);
+}
+ 
+function miDeleteSet(exIdx,setNum){
+  const row=document.getElementById(`mi-row-${exIdx}-${setNum}`);
+  if(row)row.remove();
+  if(window._miSetCounts&&window._miSetCounts[exIdx]>1)window._miSetCounts[exIdx]--;
+  const container=document.getElementById(`mi-sets-${exIdx}`);
+  if(container)container.querySelectorAll('.set-row').forEach((r,idx)=>{r.querySelector('.set-num-label').textContent=`Set ${idx+1}`;});
+}
+ 
+function saveManualInsert(){
+  const dateVal=document.getElementById('mi-date').value;
+  if(!dateVal){alert('Please select a date.');return;}
+  const session=document.getElementById('mi-session').value;
+  const w=WORKOUTS[session];
+  if(!w)return;
+  const dk=dateVal; // already in YYYY-MM-DD
+  const all=loadWorkouts();
+  if(!all[dk])all[dk]={};
+  all[dk]['session']=session;
+  all[dk]['finished']=true;
+ 
+  w.exercises.forEach((ex,i)=>{
+    const isDone=document.getElementById(`mi-check-${i}`)?.textContent==='✅';
+    if(!isDone)return;
+    all[dk][`done_${i}`]=true;
+    const count=window._miSetCounts?.[i]||1;
+    all[dk][`sets_${i}`]=count;
+    all[dk][`ex_${i}`]={};
+    for(let s=1;s<=count;s++){
+      const kg=document.getElementById(`mi-kg-${i}-${s}`)?.value||'';
+      const reps=document.getElementById(`mi-reps-${i}-${s}`)?.value||'';
+      if(kg||reps) all[dk][`ex_${i}`][`s${s}`]={kg,reps};
+    }
+  });
+ 
+  const cardio=document.getElementById('mi-cardio')?.classList.contains('done');
+  if(cardio)all[dk]['cardio']=true;
+ 
+  saveWorkouts(all);
+  closeManualInsert();
+  renderHistory();
+}
+ 
+function closeManualInsert(){
+  document.getElementById('manual-insert-modal').style.display='none';
+}
+ 
+ 
 let schedView = 'list';
  
 function setSchedView(v){
@@ -954,6 +1094,39 @@ renderToday();
     </div>
     <input type="hidden" id="hedit-current-dk">
     <div style="padding:14px 14px 24px" id="hedit-body"></div>
+  </div>
+</div>
+<!-- Manual Insert Modal -->
+<div id="manual-insert-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 0;">
+  <div style="background:var(--surface);border-radius:var(--radius);width:100%;max-width:480px;margin:auto;border:1px solid var(--border);overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">Add Past Workout</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">Select date & session, log your sets</div>
+      </div>
+      <button onclick="closeManualInsert()" style="background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;">Cancel</button>
+    </div>
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div style="flex:1;min-width:130px">
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Date</div>
+        <input type="date" id="mi-date" style="width:100%;background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font-size:13px;" onchange="miUpdateSession()">
+      </div>
+      <div style="flex:1;min-width:130px">
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Session</div>
+        <select id="mi-session" style="width:100%;background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font-size:13px;" onchange="miLoadExercises()">
+          <option value="Push1">Push 1 – Chest Focused</option>
+          <option value="Pull1">Pull 1 – Vertical Pull</option>
+          <option value="Legs1">Legs 1 – Quad Focused</option>
+          <option value="Push2">Push 2 – Shoulders Focused</option>
+          <option value="Pull2">Pull 2 – Horizontal Pull</option>
+          <option value="Legs2">Legs 2 – Hamstring Focused</option>
+        </select>
+      </div>
+    </div>
+    <div style="padding:14px 14px 24px" id="mi-body"></div>
+    <div style="padding:0 14px 20px">
+      <button onclick="saveManualInsert()" style="width:100%;background:var(--green);border:none;color:#fff;border-radius:10px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;">Save Workout</button>
+    </div>
   </div>
 </div>
 </body>
