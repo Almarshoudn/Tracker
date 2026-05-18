@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
+ 
   :root {
     --bg: #0F0F0E;
     --surface: #1A1A18;
@@ -30,80 +30,80 @@
     --safe-left: env(safe-area-inset-left, 0px);
     --safe-right: env(safe-area-inset-right, 0px);
   }
-
+ 
   html { background: var(--bg); }
   body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: calc(80px + var(--safe-bottom)); -webkit-font-smoothing: antialiased; }
-
+ 
   header { background: rgba(26,26,24,0.92); border-bottom: 1px solid var(--border); padding: calc(var(--safe-top) + 16px) 20px 14px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
   .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
   .site-title { font-family: 'DM Serif Display', serif; font-size: 21px; letter-spacing: -0.3px; }
   .site-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; font-weight: 300; }
   .today-date { text-align: right; font-size: 11px; color: var(--text-secondary); }
   .today-date strong { display: block; font-size: 14px; font-weight: 600; color: var(--text); }
-
+ 
   .skip-btn { margin-top: 6px; display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; font-family: 'DM Sans', sans-serif; color: var(--text-secondary); background: var(--surface-2); border: 1px solid var(--border-light); border-radius: 100px; padding: 3px 10px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .skip-btn:active { background: var(--surface-3); color: var(--red); border-color: var(--red); }
   .skip-btn.skipped { color: var(--red); border-color: var(--red); background: rgba(232,112,112,0.08); }
-
+ 
   .status-row { display: flex; gap: 7px; flex-wrap: wrap; }
   .pill { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 100px; display: inline-flex; align-items: center; gap: 5px; }
   .pill-dot { width: 6px; height: 6px; border-radius: 50%; }
-
+ 
   .nav { display: flex; background: rgba(26,26,24,0.92); border-bottom: 1px solid var(--border); padding: 0 4px; position: sticky; top: calc(var(--safe-top) + 88px); z-index: 99; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
   .nav::-webkit-scrollbar { display: none; }
   .nav-tab { font-size: 13px; font-weight: 500; color: var(--text-secondary); padding: 13px 18px; border-bottom: 2px solid transparent; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; transition: all 0.2s; white-space: nowrap; min-height: 44px; flex-shrink: 0; }
   .nav-tab.active { color: var(--text); border-bottom-color: var(--text); }
-
+ 
   main { padding: 18px; padding-left: max(18px, var(--safe-left)); padding-right: max(18px, var(--safe-right)); max-width: 680px; margin: 0 auto; }
   .section { display: none; }
   .section.active { display: block; }
-
+ 
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
   .card-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; }
-
+ 
   .workout-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
   .workout-badge { font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; flex-shrink: 0; }
   .workout-title { font-family: 'DM Serif Display', serif; font-size: 22px; letter-spacing: -0.3px; }
   .workout-muscles { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-
+ 
   /* ── EXERCISE ITEMS ── */
   .exercise-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 9px; overflow: hidden; transition: border-color 0.2s; }
   .exercise-item.logged { border-color: var(--green); }
   .exercise-item.done-ex { border-color: var(--green); background: var(--green-bg); }
-
+ 
   .exercise-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 14px; cursor: pointer; background: var(--surface); transition: background 0.15s; user-select: none; min-height: 60px; }
   .exercise-item.done-ex .exercise-header { background: var(--green-bg); }
   .exercise-header:active { background: var(--surface-2); }
-
+ 
   .exercise-left { display: flex; align-items: center; gap: 11px; flex: 1; min-width: 0; }
   .exercise-num { font-size: 11px; font-weight: 600; color: var(--text-muted); width: 18px; flex-shrink: 0; }
   .exercise-name { font-size: 14px; font-weight: 500; line-height: 1.3; }
   .exercise-meta { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
   .exercise-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-left: 8px; }
-
+ 
   .ex-check-btn { font-size: 20px; line-height: 1; background: none; border: none; cursor: pointer; padding: 4px; min-width: 32px; text-align: center; }
   .chevron { font-size: 11px; color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
   .exercise-item.open .chevron { transform: rotate(180deg); }
-
+ 
   .log-panel { display: none; padding: 0 14px 14px; background: var(--surface-2); border-top: 1px solid var(--border); }
   .exercise-item.open .log-panel { display: block; }
-
+ 
   .sets-header { display: flex; gap: 8px; padding: 10px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
   .sets-header span { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); }
-
+ 
   .set-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
   .set-num-label { font-size: 11px; font-weight: 600; color: var(--text-secondary); width: 34px; flex-shrink: 0; }
-
+ 
   .set-input { flex: 1; padding: 11px 10px; border: 1px solid var(--border-light); border-radius: var(--radius-xs); font-size: 16px; font-family: 'DM Sans', sans-serif; background: var(--surface-3); color: var(--text); transition: border-color 0.15s; width: 100%; -webkit-appearance: none; appearance: none; }
   .set-input:focus { outline: none; border-color: var(--text-secondary); }
   .set-input::placeholder { color: var(--text-muted); }
-
+ 
   .set-delete-btn { background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; padding: 4px 6px; min-width: 30px; flex-shrink: 0; }
   .set-delete-btn:active { color: var(--red); }
-
+ 
   .add-set-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 6px; padding: 10px; border: 1px dashed var(--border-light); border-radius: var(--radius-xs); background: none; color: var(--text-secondary); font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; }
   .add-set-btn:active { background: var(--surface-3); color: var(--text); }
-
+ 
   /* ── CARDIO ── */
   .cardio-card { border: 1px dashed var(--border-light); border-radius: var(--radius-sm); padding: 15px 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.15s; min-height: 60px; margin-top: 10px; }
   .cardio-card:active { background: var(--surface-2); }
@@ -111,13 +111,13 @@
   .cardio-label { font-size: 14px; font-weight: 500; }
   .cardio-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
   .cardio-check { font-size: 22px; }
-
+ 
   /* ── REST ── */
   .rest-card { text-align: center; padding: 52px 24px; }
   .rest-icon { font-size: 52px; margin-bottom: 16px; }
   .rest-title { font-family: 'DM Serif Display', serif; font-size: 28px; margin-bottom: 10px; }
   .rest-sub { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
-
+ 
   /* ── WEIGHT ── */
   .weight-input-row { display: flex; gap: 10px; margin-bottom: 16px; }
   .big-input { flex: 1; padding: 13px 14px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); font-size: 16px; font-family: 'DM Sans', sans-serif; background: var(--surface-2); color: var(--text); -webkit-appearance: none; appearance: none; }
@@ -138,7 +138,7 @@
   .weight-val { font-weight: 600; font-size: 15px; }
   .w-up { color: var(--red); font-size: 12px; }
   .w-down { color: var(--green); font-size: 12px; }
-
+ 
   /* ── HISTORY ── */
   .history-day { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 9px; overflow: hidden; }
   .history-day-header { display: flex; justify-content: space-between; align-items: center; padding: 14px; cursor: pointer; background: var(--surface); min-height: 60px; }
@@ -150,19 +150,19 @@
   .history-ex { margin-bottom: 10px; }
   .history-ex-name { font-weight: 500; margin-bottom: 4px; }
   .history-set-line { color: var(--text-secondary); font-size: 12px; line-height: 1.9; }
-
+ 
   /* ── SCHEDULE ── */
   .sched-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
   .sched-toggle-btn { flex: 1; padding: 9px; border-radius: var(--radius-xs); border: 1px solid var(--border-light); background: none; color: var(--text-secondary); font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; min-height: 40px; }
   .sched-toggle-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-
+ 
   .sched-row { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--border); }
   .sched-row:last-child { border-bottom: none; }
   .sched-date-text { font-size: 14px; color: var(--text-secondary); }
   .sched-row.today-row .sched-date-text { font-weight: 600; color: var(--text); }
   .sched-badges { display: flex; gap: 6px; }
   .badge-sm { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 100px; white-space: nowrap; }
-
+ 
   /* Calendar view */
   .cal-view { }
   .cal-month-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -174,10 +174,10 @@
   .cal-day-num { font-size: 12px; font-weight: 500; margin-bottom: 4px; color: var(--text-secondary); }
   .cal-cell.today-cell .cal-day-num { color: var(--text); font-weight: 700; }
   .cal-dot { font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 4px; display: inline-block; margin-top: 2px; line-height: 1.4; }
-
+ 
   .empty-state { text-align: center; padding: 44px 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
   .next-card { display: flex; align-items: center; gap: 12px; padding: 4px 0 0; }
-
+ 
   .finish-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 14px; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #1F4A30; background: #1A3D2A; color: #5EBA8A; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; min-height: 52px; }
   .finish-btn:active { background: #224d35; border-color: #2a5e3c; }
   .finish-banner { background: var(--green-bg); border: 1px solid var(--green); border-radius: var(--radius-sm); padding: 14px 16px; text-align: center; margin-top: 14px; }
@@ -186,7 +186,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="header-top">
     <div>
@@ -201,17 +201,17 @@
   </div>
   <div class="status-row" id="status-row"></div>
 </header>
-
+ 
 <div class="nav">
   <button class="nav-tab active" onclick="switchTab('today',this)">Today</button>
   <button class="nav-tab" onclick="switchTab('weight',this)">Weight</button>
   <button class="nav-tab" onclick="switchTab('history',this)">History</button>
   <button class="nav-tab" onclick="switchTab('schedule',this)">Schedule</button>
 </div>
-
+ 
 <main>
   <div class="section active" id="tab-today"><div id="today-content"></div></div>
-
+ 
   <div class="section" id="tab-weight">
     <div class="card">
       <div class="card-label">Log today's weight</div>
@@ -225,14 +225,14 @@
       <div id="weight-history"></div>
     </div>
   </div>
-
+ 
   <div class="section" id="tab-history">
     <div class="card">
       <div class="card-label">Workout log</div>
       <div id="history-list"></div>
     </div>
   </div>
-
+ 
   <div class="section" id="tab-schedule">
     <div class="card">
       <div class="sched-toggle">
@@ -244,14 +244,14 @@
     </div>
   </div>
 </main>
-
+ 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const ANCHOR     = new Date(2026,2,3);
 const SHIFTS     = ['Morning','Noon','Night','Off','Off'];
 const PPL        = ['Push1','Pull1','Legs1','Push2','Pull2','Legs2'];
-const PPL_ANCHOR = new Date(2026,3,8);
-
+const PPL_ANCHOR = new Date(2026,4,18);
+ 
 const WORKOUTS = {
   Push1:{color:'#6B9FE8',bg:'#1A2535',label:'Push 1',muscles:'Chest Focused',exercises:[
     {name:'Bench Press (Heavy)',       meta:'Chest · Main compound',          sets:1},
@@ -304,10 +304,10 @@ const WORKOUTS = {
     {name:'Calf Raises',               meta:'Calves',                         sets:1},
   ]},
 };
-
+ 
 const SHIFT_C   = {Morning:['#E8A847','#2A1F0A'],Noon:['#5EBA8A','#152A20'],Night:['#6B9FE8','#1A2535'],Off:['#7A7870','#1E1E1C']};
 const SESSION_C = {Push1:['#6B9FE8','#1A2535'],Pull1:['#A07ED4','#221A35'],Legs1:['#5EBA8A','#152A20'],Push2:['#E8A847','#2A1F0A'],Pull2:['#E87070','#2A1515'],Legs2:['#5EC4BA','#0F2A29'],Rest:['#7A7870','#1E1E1C']};
-
+ 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function daysBetween(a,b){return Math.round((b-a)/86400000);}
 function getShift(d){return SHIFTS[((daysBetween(ANCHOR,d)%5)+5)%5];}
@@ -321,19 +321,19 @@ function dateKey(d){return d.toISOString().slice(0,10);}
 function fmtLong(d){return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
 function fmtShort(d){return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
 function fmtSched(d){return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
-
+ 
 function loadWorkouts(){return JSON.parse(localStorage.getItem('nasser_workouts')||'{}');}
 function saveWorkouts(d){localStorage.setItem('nasser_workouts',JSON.stringify(d));}
 function loadWeights(){return JSON.parse(localStorage.getItem('nasser_weights')||'[]');}
 function saveWeights(a){localStorage.setItem('nasser_weights',JSON.stringify(a));}
-
+ 
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
 let CURRENT_DAY_KEY='';
-
+ 
 // ── SKIP LOGIC ────────────────────────────────────────────────────────────────
 function loadSkips(){try{const s=JSON.parse(localStorage.getItem('nasser_skips')||'[]');return Array.isArray(s)?s:[];}catch(e){return[];}} // array of skipped dateKeys
 function saveSkips(s){localStorage.setItem('nasser_skips',JSON.stringify(s));}
-
+ 
 // Core: get effective session for any date, accounting for all skips
 // Logic: count how many non-morning training days have occurred from PPL_ANCHOR up to (not including) this date,
 // but exclude any days that were skipped. That gives the PPL index.
@@ -342,7 +342,7 @@ function getEffectiveSession(d){
   const skips=loadSkips();
   const key=dateKey(d);
   if(skips.includes(key)) return 'Rest'; // this day was skipped
-
+ 
   const diff=daysBetween(PPL_ANCHOR,d);
   let n=0;
   for(let i=0;i<diff;i++){
@@ -352,11 +352,11 @@ function getEffectiveSession(d){
   }
   return PPL[((n%6)+6)%6];
 }
-
+ 
 function skipWorkout(){
   const key=dateKey(TODAY);
   const skips=loadSkips();
-
+ 
   // Undo if already skipped
   if(skips.includes(key)){
     const idx=skips.indexOf(key);
@@ -366,16 +366,16 @@ function skipWorkout(){
     refreshScheduleIfOpen();
     return;
   }
-
+ 
   // Only skip real workout days (not morning shift rest)
   if(getShift(TODAY)==='Morning') return;
-
+ 
   skips.push(key);
   saveSkips(skips);
   renderToday();
   refreshScheduleIfOpen();
 }
-
+ 
 function refreshScheduleIfOpen(){
   const schedTab=document.getElementById('tab-schedule');
   if(schedTab && schedTab.classList.contains('active')){
@@ -383,36 +383,36 @@ function refreshScheduleIfOpen(){
     else renderSchedCal();
   }
 }
-
+ 
 // ── TODAY ─────────────────────────────────────────────────────────────────────
 function renderToday(){
   const shift=getShift(TODAY);
   const key=dateKey(TODAY);
   CURRENT_DAY_KEY=key;
-
+ 
   const skips=loadSkips();
   const isSkipped=skips.includes(key);
   const session=getEffectiveSession(TODAY);
-
+ 
   const [sc,sl]=SHIFT_C[shift];
   const [wc,wl]=SESSION_C[session==='Rest'?'Rest':session]||SESSION_C['Rest'];
-
+ 
   document.getElementById('header-date').textContent=TODAY.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   document.getElementById('header-day').textContent=TODAY.toLocaleDateString('en-GB',{weekday:'long'});
   const sessionLabel = session === 'Rest' ? (isSkipped ? 'Skipped' : 'Rest') : (isSkipped ? 'Skipped' : WORKOUTS[session].label);
   document.getElementById('status-row').innerHTML=`
     <span class="pill" style="background:${sl};color:${sc}"><span class="pill-dot" style="background:${sc}"></span>${shift} Shift</span>
     <span class="pill" style="background:${wl};color:${wc}"><span class="pill-dot" style="background:${wc}"></span>${sessionLabel} Day</span>`;
-
+ 
   // Show skip button only on real workout days
   const skipBtn=document.getElementById('skip-btn');
   const canSkip=getShift(TODAY)!=='Morning';
   skipBtn.style.display=canSkip?'inline-flex':'none';
   skipBtn.textContent=isSkipped?'↩ Undo Skip':'Skip Workout';
   skipBtn.classList.toggle('skipped',isSkipped);
-
+ 
   const container=document.getElementById('today-content');
-
+ 
   if(session==='Rest'){
     const icon=isSkipped?'⏭':'🌙';
     const title=isSkipped?'Skipped':'Rest Day';
@@ -422,28 +422,28 @@ function renderToday(){
     container.innerHTML=`<div class="card rest-card"><div class="rest-icon">${icon}</div><div class="rest-title">${title}</div><div class="rest-sub">${sub}</div></div>${nextHTML()}`;
     return;
   }
-
+ 
   renderWorkout(session, key);
 }
-
+ 
 function renderWorkout(session, key){
   const w=WORKOUTS[session], saved=loadWorkouts()[key]||{};
   const container=document.getElementById('today-content');
   const cd=saved['cardio']===true;
   const isFinished=saved['finished']===true;
-
+ 
   let exHTML='';
   w.exercises.forEach((ex,i)=>{
     exHTML += buildExerciseHTML(key, ex, i, saved);
   });
-
+ 
   const finishHTML = isFinished
     ? `<div class="finish-banner">
         <div class="finish-banner-title">✅ Workout Logged!</div>
         <div class="finish-banner-sub">${countDoneExercises(saved, w)} exercise(s) saved to history.<br><span style="cursor:pointer;text-decoration:underline" onclick="undoFinish('${key}')">Undo</span></div>
       </div>`
     : `<button class="finish-btn" onclick="finishWorkout('${key}','${session}')">Workout Finished</button>`;
-
+ 
   container.innerHTML=`<div class="card">
     <div class="workout-header">
       <span class="workout-badge" style="background:${w.bg};color:${w.color}">${w.label}</span>
@@ -460,13 +460,13 @@ function renderWorkout(session, key){
     ${finishHTML}
   </div>`;
 }
-
+ 
 function countDoneExercises(saved, w){
   let count=0;
   w.exercises.forEach((_,i)=>{ if(saved[`done_${i}`]) count++; });
   return count;
 }
-
+ 
 function finishWorkout(dk, session){
   const all=loadWorkouts();
   if(!all[dk])all[dk]={};
@@ -484,7 +484,7 @@ function finishWorkout(dk, session){
   saveWorkouts(all);
   renderWorkout(session, dk);
 }
-
+ 
 function undoFinish(dk){
   const all=loadWorkouts();
   if(all[dk]) delete all[dk]['finished'];
@@ -493,16 +493,16 @@ function undoFinish(dk){
   const session=(skips[dk]&&skips[dk].movedFrom)?skips[dk].session:getSession(new Date(dk+'T00:00:00'));
   renderWorkout(session, dk);
 }
-
+ 
 function buildExerciseHTML(key, ex, i, saved){
   const ek=`ex_${i}`;
   const savedEx=saved[ek]||{};
   const isDone=saved[`done_${i}`]===true;
   const logged=Object.keys(savedEx).length>0;
-
+ 
   // figure out how many sets to show: saved count or default
   const setCount = saved[`sets_${i}`] !== undefined ? saved[`sets_${i}`] : ex.sets;
-
+ 
   let setsHTML='';
   for(let s=1;s<=setCount;s++){
     const sv=savedEx[`s${s}`]||{};
@@ -515,7 +515,7 @@ function buildExerciseHTML(key, ex, i, saved){
       <button class="set-delete-btn" onclick="deleteSet('${key}',${i},${s})" title="Remove set">×</button>
     </div>`;
   }
-
+ 
   return `<div class="exercise-item ${isDone?'done-ex':logged?'logged':''}" id="ei-${i}">
     <div class="exercise-header" onclick="toggleEx(${i})">
       <div class="exercise-left">
@@ -539,11 +539,11 @@ function buildExerciseHTML(key, ex, i, saved){
     </div>
   </div>`;
 }
-
+ 
 function toggleEx(i){
   document.getElementById(`ei-${i}`).classList.toggle('open');
 }
-
+ 
 function toggleExDone(event, dk, i){
   event.stopPropagation();
   const all=loadWorkouts();
@@ -556,7 +556,7 @@ function toggleExDone(event, dk, i){
   item.classList.toggle('logged', !done && Object.keys(all[dk][`ex_${i}`]||{}).length>0);
   item.querySelector('.ex-check-btn').textContent=done?'✅':'⬜';
 }
-
+ 
 function autoSave(dk,ek,sk,field,val,exIdx){
   const all=loadWorkouts();
   if(!all[dk])all[dk]={};
@@ -567,17 +567,19 @@ function autoSave(dk,ek,sk,field,val,exIdx){
   const el=document.getElementById(`ei-${exIdx}`);
   if(el&&!el.classList.contains('done-ex'))el.classList.add('logged');
 }
-
+ 
 function addSet(dk, exIdx){
   const all=loadWorkouts();
   if(!all[dk])all[dk]={};
+  const session = all[dk]['session'] || getEffectiveSession(new Date(dk+'T00:00:00'));
+  const baseSetCount = WORKOUTS[session] ? WORKOUTS[session].exercises[exIdx].sets : 1;
   const currentCount = all[dk][`sets_${exIdx}`] !== undefined
     ? all[dk][`sets_${exIdx}`]
-    : WORKOUTS[getSession(TODAY)].exercises[exIdx].sets;
+    : baseSetCount;
   const newCount = currentCount + 1;
   all[dk][`sets_${exIdx}`] = newCount;
   saveWorkouts(all);
-
+ 
   const container = document.getElementById(`sets-container-${exIdx}`);
   const ek = `ex_${exIdx}`;
   const s = newCount;
@@ -594,7 +596,7 @@ function addSet(dk, exIdx){
     <button class="set-delete-btn" onclick="deleteSet('${key}',${exIdx},${s})" title="Remove set">×</button>`;
   container.appendChild(newRow);
 }
-
+ 
 function deleteSet(dk, exIdx, setNum){
   const all=loadWorkouts();
   if(!all[dk])return;
@@ -615,7 +617,7 @@ function deleteSet(dk, exIdx, setNum){
     if(item) item.classList.add('open');
   },10);
 }
-
+ 
 function toggleCardio(dk){
   const all=loadWorkouts();if(!all[dk])all[dk]={};
   all[dk]['cardio']=!all[dk]['cardio'];saveWorkouts(all);
@@ -623,7 +625,7 @@ function toggleCardio(dk){
   document.getElementById('cardio-card').classList.toggle('done',done);
   document.getElementById('cardio-card').querySelector('.ex-check-btn').textContent=done?'✅':'⬜';
 }
-
+ 
 function nextHTML(){
   let d=new Date(TODAY);d.setDate(d.getDate()+1);
   for(let i=0;i<14;i++){
@@ -632,7 +634,7 @@ function nextHTML(){
     d.setDate(d.getDate()+1);
   }return'';
 }
-
+ 
 // ── WEIGHT ────────────────────────────────────────────────────────────────────
 function logWeight(){
   const val=parseFloat(document.getElementById('weight-input').value);
@@ -640,7 +642,7 @@ function logWeight(){
   const arr=loadWeights();arr.unshift({date:dateKey(TODAY),kg:val,display:fmtShort(TODAY)});
   saveWeights(arr);document.getElementById('weight-input').value='';renderWeight();
 }
-
+ 
 function renderWeight(){
   const arr=loadWeights();
   const sEl=document.getElementById('weight-stats'),hEl=document.getElementById('weight-history');
@@ -655,13 +657,11 @@ function renderWeight(){
     return`<div class="weight-entry"><span style="font-size:14px;color:var(--text-secondary)">${w.display}</span><div style="display:flex;align-items:center;gap:12px">${ch}<span class="weight-val">${w.kg} kg</span></div></div>`;
   }).join('');
 }
-
+ 
 // ── HISTORY ───────────────────────────────────────────────────────────────────
 function renderHistory(){
   const all=loadWorkouts(),el=document.getElementById('history-list');
-  const days=Object.keys(all).sort().reverse().filter(k=>{
-    return all[k]['finished']===true;
-  });
+  const days=Object.keys(all).sort().reverse().filter(k=>all[k]['finished']===true);
   if(!days.length){el.innerHTML='<div class="empty-state">No workouts logged yet.<br>Tap "Workout Finished" after your session to log it.</div>';return;}
   el.innerHTML=days.map(k=>{
     const d=new Date(k+'T00:00:00');
@@ -671,24 +671,165 @@ function renderHistory(){
     const w=WORKOUTS[s];
     let ex='';
     w.exercises.forEach((e,i)=>{
-      if(!data[`done_${i}`])return; // only logged (checked) exercises
-      const sets=data[`ex_${i}`];
+      if(!data[`done_${i}`])return;
+      const sets=data[`ex_${i}`]||{};
       const setCount=data[`sets_${i}`]||e.sets;
       let lines='';
-      if(sets){for(let s=1;s<=setCount;s++){const sv=sets[`s${s}`];if(sv&&(sv.kg||sv.reps))lines+=`Set ${s}: ${sv.kg||'—'} kg × ${sv.reps||'—'} reps &nbsp; `;}}
+      for(let s=1;s<=setCount;s++){const sv=sets[`s${s}`];if(sv&&(sv.kg||sv.reps))lines+=`Set ${s}: ${sv.kg||'—'} kg × ${sv.reps||'—'} reps &nbsp; `;}
       ex+=`<div class="history-ex"><div class="history-ex-name">✅ ${e.name}</div><div class="history-set-line">${lines||'Completed'}</div></div>`;
     });
     if(data['cardio'])ex+=`<div class="history-ex" style="color:var(--green);font-size:12px">✅ Incline Treadmill Walk completed</div>`;
-    return`<div class="history-day" onclick="this.classList.toggle('open')">
-      <div class="history-day-header"><div><div class="history-day-title">${w.label} Day</div><div class="history-day-sub">${fmtLong(d)}</div></div><span class="badge-sm" style="background:${w.bg};color:${w.color}">${w.label}</span></div>
+    return`<div class="history-day" id="hday-${k}">
+      <div class="history-day-header" onclick="document.getElementById('hday-${k}').classList.toggle('open')">
+        <div><div class="history-day-title">${w.label} Day</div><div class="history-day-sub">${fmtLong(d)}</div></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge-sm" style="background:${w.bg};color:${w.color}">${w.label}</span>
+          <button class="add-set-btn" style="margin:0;padding:4px 10px;font-size:11px" onclick="event.stopPropagation();openHistoryEdit('${k}')" title="Edit workout">✏️ Edit</button>
+        </div>
+      </div>
       <div class="history-day-body">${ex||'<span style="color:var(--text-secondary)">No exercises logged.</span>'}</div>
     </div>`;
   }).join('');
 }
-
+ 
+function openHistoryEdit(dk){
+  const all=loadWorkouts();
+  const data=all[dk]||{};
+  const s=data['session']||getEffectiveSession(new Date(dk+'T00:00:00'));
+  if(!WORKOUTS[s])return;
+  const w=WORKOUTS[s];
+  const d=new Date(dk+'T00:00:00');
+ 
+  // Build full editable exercise list (all exercises, not just done ones)
+  let exHTML='';
+  w.exercises.forEach((ex,i)=>{
+    const ek=`ex_${i}`;
+    const savedEx=data[ek]||{};
+    const isDone=data[`done_${i}`]===true;
+    const setCount=data[`sets_${i}`]!==undefined?data[`sets_${i}`]:ex.sets;
+    let setsHTML='';
+    for(let s=1;s<=setCount;s++){
+      const sv=savedEx[`s${s}`]||{};
+      setsHTML+=`<div class="set-row" id="hedit-row-${i}-${s}">
+        <span class="set-num-label">Set ${s}</span>
+        <input class="set-input" type="number" inputmode="decimal" placeholder="kg" step="0.5"
+          value="${sv.kg||''}" onchange="histAutoSave('${dk}','${ek}','s${s}','kg',this.value,${i})">
+        <input class="set-input" type="number" inputmode="numeric" placeholder="reps"
+          value="${sv.reps||''}" onchange="histAutoSave('${dk}','${ek}','s${s}','reps',this.value,${i})">
+        <button class="set-delete-btn" onclick="histDeleteSet('${dk}',${i},${s})" title="Remove set">×</button>
+      </div>`;
+    }
+    exHTML+=`<div class="exercise-item ${isDone?'done-ex':''} open" id="hedit-ex-${i}">
+      <div class="exercise-header" onclick="document.getElementById('hedit-ex-${i}').classList.toggle('open')">
+        <div class="exercise-left">
+          <span class="exercise-num">${i+1}</span>
+          <div><div class="exercise-name">${ex.name}</div><div class="exercise-meta">${ex.meta}</div></div>
+        </div>
+        <div class="exercise-right">
+          <button class="ex-check-btn" onclick="event.stopPropagation();histToggleDone('${dk}',${i})">${isDone?'✅':'⬜'}</button>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="log-panel">
+        <div class="sets-header"><span style="width:34px"></span><span style="flex:1">Weight (kg)</span><span style="flex:1">Reps</span><span style="width:30px"></span></div>
+        <div id="hedit-sets-${i}">${setsHTML}</div>
+        <button class="add-set-btn" onclick="histAddSet('${dk}',${i})">+ Add set</button>
+      </div>
+    </div>`;
+  });
+ 
+  const cd=data['cardio']===true;
+  const modal=document.getElementById('history-edit-modal');
+  document.getElementById('hedit-title').textContent=`${w.label} Day — ${fmtLong(d)}`;
+  document.getElementById('hedit-current-dk').value=dk;
+  document.getElementById('hedit-body').innerHTML=exHTML+`
+    <div class="cardio-card ${cd?'done':''}" id="hedit-cardio" onclick="histToggleCardio('${dk}')">
+      <div class="exercise-left" style="gap:11px">
+        <span class="exercise-num" style="visibility:hidden">0</span>
+        <div><div class="cardio-label">Incline Treadmill Walk</div><div class="cardio-sub">Incline: 3 · Speed: 3–4 · 20–30 min</div></div>
+      </div>
+      <div class="exercise-right"><button class="ex-check-btn" onclick="event.stopPropagation();histToggleCardio('${dk}')">${cd?'✅':'⬜'}</button><span class="chevron" style="visibility:hidden">▼</span></div>
+    </div>`;
+  modal.style.display='flex';
+}
+ 
+function closeHistoryEdit(){
+  document.getElementById('history-edit-modal').style.display='none';
+  renderHistory();
+}
+ 
+function histAutoSave(dk,ek,sk,field,val,exIdx){
+  const all=loadWorkouts();
+  if(!all[dk])all[dk]={};
+  if(!all[dk][ek])all[dk][ek]={};
+  if(!all[dk][ek][sk])all[dk][ek][sk]={};
+  all[dk][ek][sk][field]=val;
+  saveWorkouts(all);
+}
+ 
+function histToggleDone(dk,i){
+  const all=loadWorkouts();
+  if(!all[dk])all[dk]={};
+  const done=!all[dk][`done_${i}`];
+  all[dk][`done_${i}`]=done;
+  saveWorkouts(all);
+  const item=document.getElementById(`hedit-ex-${i}`);
+  item.classList.toggle('done-ex',done);
+  item.querySelector('.ex-check-btn').textContent=done?'✅':'⬜';
+}
+ 
+function histToggleCardio(dk){
+  const all=loadWorkouts();
+  if(!all[dk])all[dk]={};
+  const done=!all[dk]['cardio'];
+  all[dk]['cardio']=done;
+  saveWorkouts(all);
+  const card=document.getElementById('hedit-cardio');
+  card.classList.toggle('done',done);
+  card.querySelector('.ex-check-btn').textContent=done?'✅':'⬜';
+}
+ 
+function histAddSet(dk,exIdx){
+  const all=loadWorkouts();
+  if(!all[dk])all[dk]={};
+  const session=all[dk]['session']||getEffectiveSession(new Date(dk+'T00:00:00'));
+  const base=WORKOUTS[session]?WORKOUTS[session].exercises[exIdx].sets:1;
+  const current=all[dk][`sets_${exIdx}`]!==undefined?all[dk][`sets_${exIdx}`]:base;
+  const newCount=current+1;
+  all[dk][`sets_${exIdx}`]=newCount;
+  saveWorkouts(all);
+  const container=document.getElementById(`hedit-sets-${exIdx}`);
+  const s=newCount;
+  const row=document.createElement('div');
+  row.className='set-row';
+  row.id=`hedit-row-${exIdx}-${s}`;
+  row.innerHTML=`<span class="set-num-label">Set ${s}</span>
+    <input class="set-input" type="number" inputmode="decimal" placeholder="kg" step="0.5"
+      onchange="histAutoSave('${dk}','ex_${exIdx}','s${s}','kg',this.value,${exIdx})">
+    <input class="set-input" type="number" inputmode="numeric" placeholder="reps"
+      onchange="histAutoSave('${dk}','ex_${exIdx}','s${s}','reps',this.value,${exIdx})">
+    <button class="set-delete-btn" onclick="histDeleteSet('${dk}',${exIdx},${s})" title="Remove set">×</button>`;
+  container.appendChild(row);
+}
+ 
+function histDeleteSet(dk,exIdx,setNum){
+  const all=loadWorkouts();
+  if(!all[dk])return;
+  const ek=`ex_${exIdx}`;
+  if(all[dk][ek]&&all[dk][ek][`s${setNum}`])delete all[dk][ek][`s${setNum}`];
+  const current=all[dk][`sets_${exIdx}`]||1;
+  if(current>1)all[dk][`sets_${exIdx}`]=current-1;
+  saveWorkouts(all);
+  const row=document.getElementById(`hedit-row-${exIdx}-${setNum}`);
+  if(row)row.remove();
+  // Renumber remaining rows
+  const container=document.getElementById(`hedit-sets-${exIdx}`);
+  if(container){container.querySelectorAll('.set-row').forEach((r,idx)=>{r.querySelector('.set-num-label').textContent=`Set ${idx+1}`;});}
+}
+ 
 // ── SCHEDULE ──────────────────────────────────────────────────────────────────
 let schedView = 'list';
-
+ 
 function setSchedView(v){
   schedView=v;
   document.getElementById('sched-list-btn').classList.toggle('active',v==='list');
@@ -698,7 +839,7 @@ function setSchedView(v){
   if(v==='list') renderSchedList();
   else renderSchedCal();
 }
-
+ 
 function renderSchedList(){
   const skips=loadSkips();
   document.getElementById('schedule-list').innerHTML=Array.from({length:20},(_,i)=>{
@@ -718,7 +859,7 @@ function renderSchedList(){
     </div>`;
   }).join('');
 }
-
+ 
 function renderSchedCal(){
   const calEl=document.getElementById('schedule-cal');
   const skips=loadSkips();
@@ -726,21 +867,21 @@ function renderSchedCal(){
   const m0=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
   months.push(m0);
   months.push(new Date(TODAY.getFullYear(),TODAY.getMonth()+1,1));
-
+ 
   // shift abbreviations and colors for calendar
   const SHIFT_ABBR = {Morning:'Mo',Noon:'No',Night:'Ni',Off:'Off'};
-
+ 
   let html='';
   months.forEach(monthStart=>{
     const monthName=monthStart.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
     const daysInMonth=new Date(monthStart.getFullYear(),monthStart.getMonth()+1,0).getDate();
     const firstDow=monthStart.getDay();
-
+ 
     html+=`<div class="cal-month-label">${monthName}</div>`;
     html+=`<div class="cal-grid">`;
     ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{ html+=`<div class="cal-dow">${d}</div>`; });
     for(let e=0;e<firstDow;e++) html+=`<div class="cal-cell empty"></div>`;
-
+ 
     for(let day=1;day<=daysInMonth;day++){
       const d=new Date(monthStart.getFullYear(),monthStart.getMonth(),day);
       const key=dateKey(d);
@@ -750,7 +891,7 @@ function renderSchedCal(){
       const isPast=d<TODAY;
       const isSkipped=skips.includes(key);
       const [sc,sl]=SHIFT_C[shift],[wc,wl]=SESSION_C[session];
-
+ 
       const sessionLabel = {Push1:'P1',Pull1:'Pu1',Legs1:'L1',Push2:'P2',Pull2:'Pu2',Legs2:'L2',Rest:'—'}[session]||'—';
       html+=`<div class="cal-cell ${isToday?'today-cell':''}" style="opacity:${isPast&&!isToday?'0.45':'1'}">
         <div class="cal-day-num" style="${isToday?'color:var(--text);font-weight:700':''}">${day}</div>
@@ -760,7 +901,7 @@ function renderSchedCal(){
     }
     html+=`</div>`;
   });
-
+ 
   // Legend — workout sessions
   html+=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
     <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-secondary);margin-bottom:8px">Workout</div>
@@ -781,14 +922,14 @@ function renderSchedCal(){
       <span class="badge-sm" style="background:#1E1E1C;color:#7A7870">Off = Day Off</span>
     </div>
   </div>`;
-
+ 
   calEl.innerHTML=html;
 }
-
+ 
 function renderSchedule(){
   renderSchedList();
 }
-
+ 
 // ── TABS ──────────────────────────────────────────────────────────────────────
 function switchTab(tab,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -798,8 +939,23 @@ function switchTab(tab,btn){
   if(tab==='history')renderHistory();
   if(tab==='schedule')renderSchedule();
 }
-
+ 
 renderToday();
 </script>
+<!-- History Edit Modal -->
+<div id="history-edit-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 0;">
+  <div style="background:var(--surface);border-radius:var(--radius);width:100%;max-width:480px;margin:auto;border:1px solid var(--border);overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)" id="hedit-title"></div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">Tap exercises to expand · Changes save instantly</div>
+      </div>
+      <button onclick="closeHistoryEdit()" style="background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;">Done</button>
+    </div>
+    <input type="hidden" id="hedit-current-dk">
+    <div style="padding:14px 14px 24px" id="hedit-body"></div>
+  </div>
+</div>
 </body>
 </html>
+ 
